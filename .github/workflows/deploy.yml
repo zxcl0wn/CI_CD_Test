@@ -1,0 +1,22 @@
+name: Run Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Установить проект
+        uses: actions/checkout@v6
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Запустить тесты
+        run: |
+          python -m unittest discover
