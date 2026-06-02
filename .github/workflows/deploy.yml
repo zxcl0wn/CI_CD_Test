@@ -8,6 +8,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    name: Run Unit Tests
+
     steps:
       - name: Установить проект
         uses: actions/checkout@v6
@@ -20,3 +22,19 @@ jobs:
       - name: Запустить тесты
         run: |
           python -m unittest discover
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    name: Deploy on the server
+
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USERNAME }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            cd CICD
+            git pull
