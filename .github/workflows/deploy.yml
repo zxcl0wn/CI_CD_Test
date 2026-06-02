@@ -36,5 +36,5 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           password: ${{ secrets.VPS_PASSWORD }}
           script: |
-            cd CICD
+            cd CI_CD_Test
             git pull
